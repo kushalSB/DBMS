@@ -1,128 +1,82 @@
-# Lab 1
+# Title: Data Definiton Language (DDL) Commands
 
-## Database Language
+# Objective: To practise and implement data definition language commands and constraints
 
-- DDL (Data Definition Language)
-- DML (Data Manipulation Langugage)
+# Procedure
 
-## Initial Steps
+1. DDL Command
 
-1. Start Apache and MySql in XAMPP
-2. Open PhpMyAdmin
+   - is used to communicate with database.
+   - is used to
+     - Create an Object
+     - Alter Structure of object
+     - to drop The object created.
+   - Commands used are: CREATE, ALTER, DROP, TRUNCATE
 
-## RDBMS
+2. Constraints
 
-- Data are managed as Tables.
+   - Constraints are rules or definition that govern the operations in the data. Constraints can be done at coloumn level or at the table level depending upon the requirement.
 
-## TABLES
+   Three types of Constraints.
 
-- We need no. of coloumns
-- Rows will increase dynamically
-- We can have multiple tables in 1 database
-- one project mostly requires only one database
+   1. Integrity Constraints
+      - NOT NULL Constraint
+      - NULL Constraint
+      - UNIQUE Constraints
+   2. Entity Constraint (Primary Key)
+   3. Refrential Constraint (Foreign Key)
 
-- Truncate: It deletes the data but preserves the Table Structure.
-- Drop: It deletes the table and data.
+# Constriant Code
 
-## DDL
+1. NOT NULL
 
-- CREATE
-- ALTER
-
-## DML
-
-- INSERT
-- UPDATE
-- DELETE
-- SELECT
-
-## Schema and Instance
-- Schema is the col name
-- Instance is the values in that col
-## LETS CREATE A DATABASE AND TABLE USING CREATE
-
-- lets Create a database
+Enforce field to always have a value.
 
 ```sql
-CREATE DATABASE db.name
-```
-
-- Now lets create a table
-
-```sql
-CREATE TABLE table.name
-```
-
-- The aboce code doesn't work as we need to specify the coloum names and data type
-
-```sql
-CREATE TABLE Student(
-    roll int,
-    name text,
-    address text,
-    phone int
+CREATE TABLE teacher
+(
+    T_id int NOT NULL,
+    T_NAME varchar(50) NOT NULL
 )
 ```
 
-- Now we have supplied the required coloums the table is now created.
+# Adding Constraints
 
-## ADDING DATA TO THE TABLE
+1. Adding Constraints
 
-- We use DML command Insert to do this
-- We need to maintain the order of insertion
-
-```sql
-INSERT INTO TableName(col1,col2) VALUES (val1,val2)
-```
-
-- we can also use the syntax below
+- First Alter Table
 
 ```sql
-INSERT INTO TableName VALUES (val1, val2)
+ALTER TABLE tablename
+ADD CONSTRAINT constraint_name (filedname,fieldname,...)
 ```
 
-- using the above sql command can cause future problems which we will see in future lab
+We can add Primary key, Foreign Key, Unique, Not Null and Check as constraints.
 
-## Retrieving Information from Table
-
-- We use the SELECT command to retrieve the information.
+2. To add Foreign Key
 
 ```sql
-SELECT * FROM TableName
+ALTER TABLE tablename
+ADD CONSTRAINT fk_name FOREIGN KEY  (field_name) REFERENCE table_name(filed_name)
 ```
 
-- The above code will fetch all data from the table
-
-- To fetch Particular coloumns from a table we specify the coloumn name
+3. To add Primary Key
 
 ```sql
-SELECT col1 FROM student
+ALTER TABLE tablename
+ADD CONSTRAINT pk_name PRIMARY KEY (filedname,fieldname,...)
 ```
 
-## Truncate and Drop
+- Just Replace PRIMARY KEY with UNIQUE, to ensure every record in that field is unique
+- PRIMARY KEY id UNIQUE and NOT NULL
+
+# Removing Constraints
+
+use the syntax below
 
 ```sql
-TRUNCATE TABLE tableName
+ALTER TABLE tablename
+DROP CONSTRAINT constraint_name
 ```
 
-- The above code deletes the data from table
-
-```sql
-DROP TABLE TableName
-```
-
-- The above code delets the table entirely
-
-- To delete Database we use
-
-```sql
-DROP DATABASE DatabaseName
-```
-
-# Question
-
-1. Create database CMS
-2. Create tables staff (sid, name, designation,salary) and department (did,name,block)
-3. Insert one record for Each File
-4. Truncate and Drop Tables
-5. Drop DataBase
+- it is necessary to remove constraints of Fields that are foreign key if we want to drop that field or table.
